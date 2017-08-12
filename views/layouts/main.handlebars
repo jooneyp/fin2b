@@ -5,81 +5,47 @@
     <title>Jooney x Fin2B</title>
     <script src="/js/jquery.min.js" charset="utf-8"></script>
     <script src="/js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="/js/navbar.js" charset="utf-8"></script>
     <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css"/>
     <link rel="stylesheet" href="/css/custom.css" type="text/css"/>
-    <script>
-
-    var now;
-
-    function timer() {
-        var year = now.getFullYear();
-        var month = addZeros(now.getMonth(), 2);
-        var date = addZeros(now.getDate(), 2);
-        var hour = addZeros(now.getHours(), 2);
-        var minute = addZeros(now.getMinutes(), 2);
-        var second = addZeros(now.getSeconds(), 2);
-
-        var timeString = year + "년 " + month + "월 " + date + "일 " + hour + "시 " + minute + "분 " + second + "초";
-        $('#timer').text(timeString);
-
-        now.setSeconds(now.getSeconds() + 1);
-    }
-
-    function addZeros(num, digit) {
-        var zero = '';
-        num = num.toString();
-        if (num.length < digit) {
-            for (i = 0; i < digit - num.length; i++) {
-                zero += '0';
-            }
-        }
-        return zero + num;
-    }
-
-    setInterval(function(){timer()}, 1000);
-
-    $(window).on('load', function() {
-
-        $.ajax({
-            type: 'GET'
-            , url: 'getServerTime'
-            , success: function(data, textStatus, request) {
-                var serverDateHeader = request.getResponseHeader('Date');
-                now = new Date(Date.parse(serverDateHeader));
-                console.log('got time');
-                timer();
-            }
-        });
-
-        $("input[type=password]").keyup(function() {
-            var re = new RegExp(/^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&+=])[\w!@#$%^&+=]{8,}$/);
-            
-        	if (re.test($("#password1").val())) {
-        		$("#isvalid").removeClass("glyphicon-remove");
-        		$("#isvalid").addClass("glyphicon-ok");
-        		$("#isvalid").css("color","#00A41E");
-        	} else {
-        		$("#isvalid").removeClass("glyphicon-ok");
-        		$("#isvalid").addClass("glyphicon-remove");
-        		$("#isvalid").css("color","#FF0004");
-        	}
-
-        	if ($("#password1").val() == $("#password2").val() && $("#password1").val.length > 8) {
-        		$("#pwmatch").removeClass("glyphicon-remove");
-        		$("#pwmatch").addClass("glyphicon-ok");
-        		$("#pwmatch").css("color","#00A41E");
-        	} else {
-        		$("#pwmatch").removeClass("glyphicon-ok");
-        		$("#pwmatch").addClass("glyphicon-remove");
-        		$("#pwmatch").css("color","#FF0004");
-        	}
-        });
-
-    });
-
-    </script>
 </head>
 <body>
-    {{{body}}}
+    <div id="navbar">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <a class="navbar-brand" href="#">
+                  <img alt="Fin2B" src="/img/fin2b_logo.png">
+              </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li class="active">
+                  <a href="/home" data-target="#container" id="home-menu" data-toggle="tabajax">Home</a></li>
+              <li><a href="/changePassword" data-target="#container" id="password-menu" data-toggle="tabajax">Change Password</a></li>
+              <li><a href="/calcFibonacci" data-target="#container" id="fibonacci-menu" data-toggle="tabajax">Fibonacci</a></li>
+            </ul>
+              <form class="navbar-form navbar-left">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Keyword..">
+                </div>
+                <button type="submit" class="btn btn-default">Search Google!</button>
+              </form>
+              <ul class="nav navbar-nav navbar-center">
+                  <label id='timer'>0000년 00월 00일 00시 00분 00초</label>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">주식회사 핀투비 관리자님</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+    </div>
+    <div id="container">
+        {{{body}}}
+    </div>
 </body>
 </html>

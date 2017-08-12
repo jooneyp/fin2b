@@ -8,13 +8,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require("fs");
 
-var pages = require('./routes/static_pages');
-var routes = require('./routes/apis')(app, fs);
-
+var pages = require('./routes/static_pages')(app, fs);
+var apis = require('./routes/apis')(app, fs);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({defaultLayout: 'main'}))
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 // uncomment after placing your favicon in /public
@@ -25,12 +24,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', pages);
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
+  console.log(err);
   next(err);
 });
 
@@ -41,6 +39,7 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
+  console.log(err.message);
   res.status(err.status || 500);
   res.render('error');
 });
