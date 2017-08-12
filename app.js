@@ -28,22 +28,22 @@ var apis = require('./routes/apis')(app, fs);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  console.log(err);
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    console.log(err);
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  console.log(err.message);
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    console.log(err.message);
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;
