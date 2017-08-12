@@ -1,9 +1,21 @@
-var express = require('express');
-var router = express.Router();
+var fibonacci = require('fibonacci-fast');
+var Big = require('big.js');
 
-/* GET users listing. */
-router.get('/', function(req, res) {
-    
-});
+module.exports = function(app, fs) {
+    app.get('/getServerTime', function(req, res) {
+        res.send('');
+    });
 
-module.exports = router;
+    app.post('/calcFibonacci', function(req, res) {
+        console.log(req.body)
+        if (!req.body["n"]) {
+            res.send({result:'Invalid request!'})
+        } else if (/^\d+$/.test(req.body["n"]) == false) {
+            res.send({result:'Input only number!'});
+        }
+        var n = req.body["n"];
+        console.log("Received n = " + n);
+        var nthNum = new Big(fibonacci.get(n).number);
+        res.send({result:nthNum});
+    });
+}
