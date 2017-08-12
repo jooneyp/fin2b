@@ -11,7 +11,7 @@ module.exports = function(app, fs) {
             res.send({result:'Invalid request!'})
         }
         var n = req.body["n"];
-        else if (/^\d+$/.test(n) == false) {
+        if (/^\d+$/.test(n) == false) {
             res.send({result:'Input only number!'});
         }
         var nthNum = new Big(fibonacci.get(n).number);
