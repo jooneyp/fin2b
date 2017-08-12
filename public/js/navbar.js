@@ -32,7 +32,7 @@ $(window).on('load', function() {
     $.ajax({
         type: 'GET'
         , url: 'getServerTime'
-        , success: function(data, textStatus, request) {
+        , success: function(data, status, request) {
             var serverDateHeader = request.getResponseHeader('Date');
             now = new Date(Date.parse(serverDateHeader));
             timer();
