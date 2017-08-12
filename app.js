@@ -1,15 +1,16 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
+var app = express();
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fs = require("fs");
 
 var pages = require('./routes/static_pages');
-var apis = require('./routes/apis');
+var routes = require('./routes/apis')(app, fs);
 
-var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,7 +26,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', pages);
-app.use('/apis', apis);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
