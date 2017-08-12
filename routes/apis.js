@@ -7,14 +7,13 @@ module.exports = function(app, fs) {
     });
 
     app.post('/calcFibonacci', function(req, res) {
-        console.log(req.body)
         if (!req.body["n"]) {
             res.send({result:'Invalid request!'})
-        } else if (/^\d+$/.test(req.body["n"]) == false) {
-            res.send({result:'Input only number!'});
         }
         var n = req.body["n"];
-        console.log("Received n = " + n);
+        else if (/^\d+$/.test(n) == false) {
+            res.send({result:'Input only number!'});
+        }
         var nthNum = new Big(fibonacci.get(n).number);
         res.send({result:nthNum});
     });
